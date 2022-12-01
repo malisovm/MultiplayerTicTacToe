@@ -1,0 +1,15 @@
+{
+  "name": "ticktacktoe",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mikhail Malisov <malisov.mikhail@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.5.4"
+  }
+}
