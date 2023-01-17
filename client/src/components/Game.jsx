@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import CustomContainer from './CustomContainer'
 import { v4 as uuid } from 'uuid'
 import Container from 'react-bootstrap/Container'
@@ -36,14 +36,14 @@ export function Game({
     socket.emit('click', newValues, room)
   }
 
-  function startOver(reason) {
+  const startOver = useCallback((reason) => {
     if (reason === 'disconnect') {
       socket.emit('deleteRoom', room)
       alert('Your opponent has disconnected')
     }
     navigate('/')
     window.location.reload(true)
-  }
+  }, [navigate, room, socket])
 
   useEffect(() => {
     if (reset) {
@@ -52,12 +52,12 @@ export function Game({
       setWinComb([])
       setReset(false)
     }
-  })
+  }, [reset, setGameValues, setReset])
 
   useEffect(() => {
     if (playerCount < 2 && gameValues.some((value) => value !== ''))
       startOver('disconnect')
-  }, [playerCount, gameValues, navigate, socket, room])
+  }, [playerCount, gameValues, navigate, socket, room, startOver])
 
   useEffect(() => {
     setCanClick((canClick) => !canClick)

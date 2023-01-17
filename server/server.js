@@ -1,18 +1,14 @@
 const { Server } = require('socket.io')
 const express = require('express')
+const path = require('node:path')
 const app = express()
 const server = require('http').createServer(app)
 const io = new Server().listen(server)
 server.listen(process.env.PORT || 3001)
-app.use(express.static(__dirname + '/app'))
+app.use(express.static(path.join(__dirname, '..', 'client', 'build')))
 app.get('/', function (request, response) {
-  response.sendFile(__dirname + '/app/index.html')
-})
-app.get('/roomselector', function (request, response) {
-  response.sendFile(__dirname + '/app/index.html')
-})
-app.get('/game', function (request, response) {
-  response.sendFile(__dirname + '/app/index.html')
+  console.log('mew!')
+  response.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'))
 })
 
 const rooms = io.of('/').adapter.rooms
